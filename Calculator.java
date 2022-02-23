@@ -12,7 +12,12 @@ public class Calculator {
         Scanner sc = new Scanner(System.in);
         showOptions();
         String option =  sc.next();
-
+        ArrayList<String> optionList = new ArrayList<String>(
+        Arrays.asList("add", "subtract", "multiply", "divide", "alphabetize"));
+        if (!(optionList.contains(option))){
+            System.out.println("Invalid input entered. Terminating...");
+            sc.close();
+        } 
         while (option != "exit"){
             switch(option){
                 case "add":
@@ -40,20 +45,37 @@ public class Calculator {
                     System.out.println("Answer: " + resultDivide);
                     mainOptions();
                     break;
+                case "alphabetize":
+                    System.out.println("Enter two words: ");
+                    String str1 = sc.next();
+                    String str2 = sc.next();
+                    if ((int)str1.charAt(0) < (int)str2.charAt(0)){
+                        System.out.println(str1 + " comes before " + str2 + " alphabetically");
+                    } 
+                    else if ((int)str1.charAt(0) == (int)str2.charAt(0)){
+                        System.out.println("Chicken or Egg");
+                    } else {
+                        System.out.println(str2 + " comes before " + str1 + " alphabetically");
+                    }
+                    mainOptions();
+                    break;
                 }
+            }
         }
         
-    }
+    
 
-    public static List<Integer> inputTwoNumbers(){
+    public static List<Integer> inputTwoNumbers() {
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter two integers: ");
-        int lst[] = {};
         List<Integer> arrlist = new ArrayList<Integer>();
 
         for (int i = 0; i < 2; i++){
-            int num = sc.nextInt();
-            arrlist.add(num);
+            if (!(sc.hasNextInt())){
+                throw new InputException("Invalid input entered. Terminating...");
+            } else {
+                arrlist.add(sc.nextInt());
+            }
         }
         return arrlist;
     }
